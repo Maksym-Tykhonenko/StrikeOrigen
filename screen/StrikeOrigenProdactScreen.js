@@ -256,7 +256,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
 
   const onShouldStartLoadWithRequest = event => {
     const {url} = event;
-    //console.log('onShouldStartLoadWithRequest========> ', url);
+    //console.log('onShouldStartLoadWithRequest========> ', event);
 
     if (url.startsWith('mailto:')) {
       Linking.openURL(url);
@@ -380,10 +380,17 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
           'tel:*',
           'mailto:*',
         ]}
-        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-        onNavigationStateChange={handleNavigationStateChange}
+        //onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+        //onNavigationStateChange={handleNavigationStateChange}
         source={{
           uri: product,
+        }}
+        onOpenWindow={syntheticEvent => {
+          const {nativeEvent} = syntheticEvent;
+          const {targetUrl} = nativeEvent;
+          console.log('syntheticEvent==>', syntheticEvent);
+          console.log('nativeEvent', nativeEvent);
+          console.log('targetUrl', targetUrl);
         }}
         textZoom={100}
         allowsBackForwardNavigationGestures={true}
