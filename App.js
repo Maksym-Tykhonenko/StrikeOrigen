@@ -179,22 +179,43 @@ const App = () => {
   //  }
   //};
 
-  //fetching AdServices data getAdServicesAttributionData
   const fetchAdServicesAttributionData = async () => {
     try {
-      const data = await AppleAdsAttribution.getAdServicesAttributionData();
-      const attributionValue = data.attribution ? '1' : '0';
-      setAdServicesAtribution(attributionValue);
-      setAdServicesKeywordId(data.keywordId);
-      //console.log('data', data);
-      Alert.alert('data', data);
-      console.log('fetchAdServicesAttributionData======>');
+      const adServicesAttributionData =
+        await AppleAdsAttribution.getAdServicesAttributionData();
+      console.log('adservices' + adServicesAttributionData);
+
+      // Извлечение значений из объекта
+      ({attribution} = adServicesAttributionData); // Присваиваем значение переменной attribution
+      ({keywordId} = adServicesAttributionData);
+
+      setAdServicesAtribution(attribution);
+      setAdServicesKeywordId(keywordId);
+      // Вывод значений в консоль
+      Alert.alert(`Attribution: ${attribution}` + `KeywordId:${keywordId}`);
+      //  Alert.alert(`KeywordId: ${keywordId}`);
     } catch (error) {
-      //console.log('Помилка при отриманні даних AdServices:', error.message);
-      Alert.alert('Помилка при отриманні даних AdServices:', error.message);
-      console.log('fetchAdServicesAttributionData catch======>');
+      const {message} = error;
+      // Alert.alert(message); // --> Some error message
     }
   };
+  //fetching AdServices data getAdServicesAttributionData
+  //const fetchAdServicesAttributionData = async () => {
+  //  try {
+  //    const data = await AppleAdsAttribution.getAdServicesAttributionData();
+  //    const attributionValue = data.attribution ? '1' : '0';
+  //    setAdServicesAtribution(attributionValue);
+  //    setAdServicesKeywordId(data.keywordId);
+  //    //console.log('data', data);
+  //    Alert.alert('data', data);
+  //    //Alert.alert('keywordId', data.keywordId);
+  //    //console.log('fetchAdServicesAttributionData======>');
+  //  } catch (error) {
+  //    console.log('Помилка при отриманні даних AdServices:', error.message);
+  //    //Alert.alert('Помилка при отриманні даних AdServices:', error.message);
+  //    console.log('fetchAdServicesAttributionData catch======>');
+  //  }
+  //};
 
   ///////// OneSignall
   // 0fbba8ff-74f0-4738-9bbf-63f19b95c283
