@@ -27,7 +27,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
   const [uid, setUid] = useState(route.params?.uid);
   const [sab, setSab] = useState(route.params?.sab1);
   const [pid, setPid] = useState(route.params?.pid);
-  const [adToken, setAdToken] = useState(route.params?.adToken);
+  //const [adToken, setAdToken] = useState(route.params?.adToken);
   const [adAtribution, setAdAtribution] = useState(route.params?.adAtribution);
   const [adKeywordId, setAdKeywordId] = useState(route.params?.adKeywordId);
   const [idfv, setIdfv] = useState(route.params?.idfv);
@@ -106,7 +106,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
     uid,
     sab,
     pid,
-    adToken,
+    //adToken,
     adAtribution,
     adKeywordId,
     idfv,
@@ -120,7 +120,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
         uid,
         sab,
         pid,
-        adToken,
+        //adToken,
         adAtribution,
         adKeywordId,
         idfv,
@@ -146,7 +146,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
         setUid(parsedData.uid);
         setSab(parsedData.sab);
         setPid(parsedData.pid);
-        setAdToken(parsedData.adToken);
+        //setAdToken(parsedData.adToken);
         setAdAtribution(parsedData.adAtribution);
         setAdKeywordId(parsedData.adKeywordId);
         setCustomerUserId(parsedData.customerUserId);

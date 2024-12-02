@@ -37,22 +37,22 @@ const App = () => {
   //console.log('addPartToLinkOnce in App==>', addPartToLinkOnce);
   //////////////////Parametrs
   const [idfa, setIdfa] = useState(false);
-  console.log('idfa==>', idfa);
+  //console.log('idfa==>', idfa);
   const [oneSignalId, setOneSignalId] = useState(null);
   //console.log('oneSignalId==>', oneSignalId);
   const [appsUid, setAppsUid] = useState(null);
   const [sab1, setSab1] = useState();
   const [pid, setPid] = useState();
-  console.log('appsUid==>', appsUid);
-  console.log('sab1==>', sab1);
+  //console.log('appsUid==>', appsUid);
+  //console.log('sab1==>', sab1);
   //console.log('pid==>', pid);
   const [customerUserId, setCustomerUserId] = useState(null);
-  console.log('customerUserID==>', customerUserId);
+  //console.log('customerUserID==>', customerUserId);
   const [idfv, setIdfv] = useState();
-  console.log('idfv==>', idfv);
+  //console.log('idfv==>', idfv);
   /////////Atributions
-  const [adServicesToken, setAdServicesToken] = useState(null);
-  //console.log('adServicesToken', adServicesToken);
+  //const [adServicesToken, setAdServicesToken] = useState(null);
+  ////console.log('adServicesToken', adServicesToken);
   const [adServicesAtribution, setAdServicesAtribution] = useState(null);
   const [adServicesKeywordId, setAdServicesKeywordId] = useState(null);
 
@@ -102,7 +102,7 @@ const App = () => {
         setPid(parsedData.pid);
         setCustomerUserId(parsedData.customerUserId);
         setIdfv(parsedData.idfv);
-        setAdServicesToken(parsedData.adServicesToken);
+        //setAdServicesToken(parsedData.adServicesToken);
         setAdServicesAtribution(parsedData.adServicesAtribution);
         setAdServicesKeywordId(parsedData.adServicesKeywordId);
         //
@@ -112,7 +112,7 @@ const App = () => {
         await requestOneSignallFoo();
         await performAppsFlyerOperations();
         await getUidApps();
-        await fetchAdServicesToken(); // Вставка функції для отримання токену
+        //await fetchAdServicesToken(); // Вставка функції для отримання токену
         await fetchAdServicesAttributionData(); // Вставка функції для отримання даних
 
         onInstallConversionDataCanceller();
@@ -135,7 +135,7 @@ const App = () => {
         pid,
         customerUserId,
         idfv,
-        adServicesToken,
+        //adServicesToken,
         adServicesAtribution,
         adServicesKeywordId,
       };
@@ -160,34 +160,35 @@ const App = () => {
     pid,
     customerUserId,
     idfv,
-    adServicesToken,
+    //adServicesToken,
     adServicesAtribution,
     adServicesKeywordId,
   ]);
 
   /////// Ad Attribution
   //fetching AdServices token
-  const fetchAdServicesToken = async () => {
-    try {
-      const token = await AppleAdsAttribution.getAdServicesAttributionToken();
-      setAdServicesToken(token);
-      //Alert.alert('token', adServicesToken);
-    } catch (error) {
-      await fetchAdServicesToken();
-      //console.error('Помилка при отриманні AdServices токену:', error.message);
-    }
-  };
+  //const fetchAdServicesToken = async () => {
+  //  try {
+  //    const token = await AppleAdsAttribution.getAdServicesAttributionToken();
+  //    setAdServicesToken(token);
+  //    //Alert.alert('token', adServicesToken);
+  //  } catch (error) {
+  //    await fetchAdServicesToken();
+  //    console.error('Помилка при отриманні AdServices токену:', error.message);
+  //  }
+  //};
 
-  //fetching AdServices data
+  //fetching AdServices data getAdServicesAttributionData
   const fetchAdServicesAttributionData = async () => {
     try {
-      const data = await AppleAdsAttribution.getAdServicesAttributionData();
+      const data = await AppleAdsAttribution.getAttributionData();
       const attributionValue = data.attribution ? '1' : '0';
       setAdServicesAtribution(attributionValue);
       setAdServicesKeywordId(data.keywordId);
+      console.log('data', data);
       //Alert.alert('data', data)
     } catch (error) {
-      console.error('Помилка при отриманні даних AdServices:', error.message);
+      //console.log('Помилка при отриманні даних AdServices:', error.message);
     }
   };
 
@@ -298,7 +299,7 @@ const App = () => {
       setIdfv(uniqueId); // Зберігаємо idfv у стейті
 
       appsFlyer.setCustomerUserId(uniqueId, res => {
-        console.log('Customer User ID встановлено успішно:', uniqueId);
+        //console.log('Customer User ID встановлено успішно:', uniqueId);
         setCustomerUserId(uniqueId); // Зберігаємо customerUserID у стейті
       });
     } catch (error) {
@@ -380,7 +381,7 @@ const App = () => {
   ///////// Route useEff
   useEffect(() => {
     const checkUrl = `${INITIAL_URL}${URL_IDENTIFAIRE}`;
-    console.log(checkUrl);
+    //console.log(checkUrl);
 
     const targetData = new Date('2024-11-04T10:00:00'); //дата з якої поч працювати webView
     const currentData = new Date(); //текущая дата
@@ -423,7 +424,7 @@ const App = () => {
               uid: appsUid,
               customerUserId: customerUserId,
               idfv: idfv,
-              adToken: adServicesToken,
+              //adToken: adServicesToken,
               adAtribution: adServicesAtribution,
               adKeywordId: adServicesKeywordId,
             }}
