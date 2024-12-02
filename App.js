@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {TouchableOpacity, AppState, Animated, View} from 'react-native';
+import {TouchableOpacity, AppState, Animated, View, Alert} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ContextProvider} from './store/context';
@@ -51,8 +51,8 @@ const App = () => {
   const [idfv, setIdfv] = useState();
   //console.log('idfv==>', idfv);
   /////////Atributions
-  //const [adServicesToken, setAdServicesToken] = useState(null);
-  ////console.log('adServicesToken', adServicesToken);
+  const [adServicesToken, setAdServicesToken] = useState(null);
+  //console.log('adServicesToken', adServicesToken);
   const [adServicesAtribution, setAdServicesAtribution] = useState(null);
   const [adServicesKeywordId, setAdServicesKeywordId] = useState(null);
 
@@ -102,7 +102,7 @@ const App = () => {
         setPid(parsedData.pid);
         setCustomerUserId(parsedData.customerUserId);
         setIdfv(parsedData.idfv);
-        //setAdServicesToken(parsedData.adServicesToken);
+        setAdServicesToken(parsedData.adServicesToken);
         setAdServicesAtribution(parsedData.adServicesAtribution);
         setAdServicesKeywordId(parsedData.adServicesKeywordId);
         //
@@ -112,7 +112,7 @@ const App = () => {
         await requestOneSignallFoo();
         await performAppsFlyerOperations();
         await getUidApps();
-        //await fetchAdServicesToken(); // Вставка функції для отримання токену
+        await fetchAdServicesToken(); // Вставка функції для отримання токену
         await fetchAdServicesAttributionData(); // Вставка функції для отримання даних
 
         onInstallConversionDataCanceller();
@@ -135,7 +135,7 @@ const App = () => {
         pid,
         customerUserId,
         idfv,
-        //adServicesToken,
+        adServicesToken,
         adServicesAtribution,
         adServicesKeywordId,
       };
@@ -160,23 +160,24 @@ const App = () => {
     pid,
     customerUserId,
     idfv,
-    //adServicesToken,
+    adServicesToken,
     adServicesAtribution,
     adServicesKeywordId,
   ]);
 
   /////// Ad Attribution
   //fetching AdServices token
-  //const fetchAdServicesToken = async () => {
-  //  try {
-  //    const token = await AppleAdsAttribution.getAdServicesAttributionToken();
-  //    setAdServicesToken(token);
-  //    //Alert.alert('token', adServicesToken);
-  //  } catch (error) {
-  //    await fetchAdServicesToken();
-  //    console.error('Помилка при отриманні AdServices токену:', error.message);
-  //  }
-  //};
+  const fetchAdServicesToken = async () => {
+    try {
+      const token = await AppleAdsAttribution.getAdServicesAttributionToken();
+      setAdServicesToken(token);
+      Alert.alert('token', adServicesToken);
+    } catch (error) {
+      //await fetchAdServicesToken();
+      console.error('Помилка при отриманні AdServices токену:', error.message);
+      Alert.alert('Помилка при отриманні AdServices токену:', error.message);
+    }
+  };
 
   //fetching AdServices data getAdServicesAttributionData
   const fetchAdServicesAttributionData = async () => {
@@ -185,10 +186,13 @@ const App = () => {
       const attributionValue = data.attribution ? '1' : '0';
       setAdServicesAtribution(attributionValue);
       setAdServicesKeywordId(data.keywordId);
-      console.log('data', data);
+      //console.log('data', data);
       Alert.alert('data', data);
+      //console.log('fetchAdServicesAttributionData======>');
     } catch (error) {
       //console.log('Помилка при отриманні даних AdServices:', error.message);
+      Alert.alert('Помилка при отриманні даних AdServices:', error.message);
+      console.log('fetchAdServicesAttributionData catch======>');
     }
   };
 
@@ -293,7 +297,8 @@ const App = () => {
 
       appsFlyer.startSdk();
 
-      console.log('App.js AppsFlyer ініціалізовано успішно');
+      //console.log('App.js AppsFlyer ініціалізовано успішно');
+      //Alert.alert('App.js AppsFlyer ініціалізовано успішно');
       // Отримуємо idfv та встановлюємо його як customerUserID
       const uniqueId = await DeviceInfo.getUniqueId();
       setIdfv(uniqueId); // Зберігаємо idfv у стейті
