@@ -3,7 +3,7 @@ workflows:
     name: Legacy Strike Hold Your Collections
     max_build_duration: 120
     integrations:
-      app_store_connect: LegacyStrikeCodemagicApiKey
+      app_store_connect: LegacyStrikeApiKey777
     environment:
       ios_signing:
         distribution_type: app_store
