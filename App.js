@@ -181,12 +181,12 @@ const App = () => {
   //fetching AdServices data getAdServicesAttributionData
   const fetchAdServicesAttributionData = async () => {
     try {
-      const data = await AppleAdsAttribution.getAttributionData();
+      const data = await AppleAdsAttribution.getAdServicesAttributionData();
       const attributionValue = data.attribution ? '1' : '0';
       setAdServicesAtribution(attributionValue);
       setAdServicesKeywordId(data.keywordId);
       console.log('data', data);
-      //Alert.alert('data', data)
+      Alert.alert('data', data);
     } catch (error) {
       //console.log('Помилка при отриманні даних AdServices:', error.message);
     }
