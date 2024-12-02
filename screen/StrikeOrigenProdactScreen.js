@@ -174,18 +174,13 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
     .map((part, index) => `sub_id_${index + 1}=${part}`)
     .join('&'); //
 
-  // Перевіряємо, чи в першому елементі саб частин є "Organic"
-  let shouldAddAdditionalParams = !(sabParts[0] && sabParts[0] === 'Organic');
-
   const product =
     `${baseUrl}` +
-    (shouldAddAdditionalParams && additionalParams
-      ? `&${additionalParams}`
-      : '') +
+    `&${additionalParams}` +
     (pid ? `&pid=${pid}` : '') +
     (!addPartToLinkOnce ? `&yhugh=true` : '');
 
-  //console.log('My product Url==>', product);
+  console.log('My product Url==>', product);
   //Alert.alert(product);
 
   //const customUserAgent = `Mozilla/5.0 (${deviceInfo.deviceSystemName}; ${deviceInfo.deviceModel}) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Mobile/15E148 Safari/604.1`;
@@ -212,7 +207,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
 
   const handleNavigationStateChange = navState => {
     const {url} = navState;
-    //console.log('NavigationState: ', url);
+    console.log('NavigationState: ', url);
     //console.log('navState: ', navState);
     if (
       url.includes(
@@ -256,7 +251,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
 
   const onShouldStartLoadWithRequest = event => {
     const {url} = event;
-    //console.log('onShouldStartLoadWithRequest========> ', event);
+    console.log('onShouldStartLoadWithRequest========> ', url);
 
     if (url.startsWith('mailto:')) {
       Linking.openURL(url);
@@ -284,7 +279,15 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
     ) {
       Linking.openURL(url);
       return false; // && checkNineUrl === product
-    } else if (url.includes('pay.skrill.com')) {
+    } //else if (url.includes('pay.skrill.com')) {
+    //console.log('Hello!!!!!!!!!!!!!!!!!!!!!');
+    //Linking.openURL(url);
+    //refWebview.current.injectJavaScript(
+    //  `window.location.href = '${redirectUrl}'`,
+    //);
+    //return false;
+    //}
+    else if (url.includes('https://gatewaynpay.com/gateway/')) {
       console.log('Hello!!!!!!!!!!!!!!!!!!!!!');
       Linking.openURL(url);
       refWebview.current.injectJavaScript(
@@ -380,17 +383,25 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
           'tel:*',
           'mailto:*',
         ]}
-        //onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-        //onNavigationStateChange={handleNavigationStateChange}
+        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+        onNavigationStateChange={handleNavigationStateChange}
         source={{
           uri: product,
         }}
         onOpenWindow={syntheticEvent => {
           const {nativeEvent} = syntheticEvent;
           const {targetUrl} = nativeEvent;
-          console.log('syntheticEvent==>', syntheticEvent);
+          //console.log('syntheticEvent==>', syntheticEvent);
           console.log('nativeEvent', nativeEvent);
           console.log('targetUrl', targetUrl);
+          //if (targetUrl.includes('https://app.payment-gateway.io/static')) {
+          //  console.log('Hello!!!!!!!!!!!!!!!!!!!!!');
+          //  Linking.openURL(targetUrl);
+          //  //refWebview.current.injectJavaScript(
+          //  //  `window.location.href = '${redirectUrl}'`,
+          //  //);
+          //  return false;
+          //} https://gatewaynpay.com/gateway/019d3e7a-41a5-4a0d-a772-2f9e46d01c71
         }}
         textZoom={100}
         allowsBackForwardNavigationGestures={true}

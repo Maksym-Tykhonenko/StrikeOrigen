@@ -113,7 +113,7 @@ const App = () => {
         await performAppsFlyerOperations();
         await getUidApps();
         //await fetchAdServicesToken(); // Вставка функції для отримання токену
-        await fetchAdServicesAttributionData(); // Вставка функції для отримання даних
+        //await fetchAdServicesAttributionData(); // Вставка функції для отримання даних
 
         onInstallConversionDataCanceller();
       }
@@ -165,20 +165,6 @@ const App = () => {
     adServicesKeywordId,
   ]);
 
-  /////// Ad Attribution
-  //fetching AdServices token
-  //const fetchAdServicesToken = async () => {
-  //  try {
-  //    const token = await AppleAdsAttribution.getAdServicesAttributionToken();
-  //    setAdServicesToken(token);
-  //    Alert.alert('token', adServicesToken);
-  //  } catch (error) {
-  //    //await fetchAdServicesToken();
-  //    console.error('Помилка при отриманні AdServices токену:', error.message);
-  //    Alert.alert('Помилка при отриманні AdServices токену:', error.message);
-  //  }
-  //};
-
   const fetchAdServicesAttributionData = async () => {
     try {
       const adServicesAttributionData =
@@ -191,9 +177,10 @@ const App = () => {
 
       setAdServicesAtribution(attribution);
       setAdServicesKeywordId(keywordId);
+      setSab1(attribution);
       // Вывод значений в консоль
-      Alert.alert(`Attribution: ${attribution}` + `KeywordId:${keywordId}`);
-      //  Alert.alert(`KeywordId: ${keywordId}`);
+      //Alert.alert(`Attribution: ${attribution}` + `KeywordId:${keywordId}`);
+      //console.log(`Attribution: ${attribution}` + `KeywordId:${keywordId}`);
     } catch (error) {
       const {message} = error;
       // Alert.alert(message); // --> Some error message
@@ -370,10 +357,11 @@ const App = () => {
             setSab1(campaign);
             setPid(pid);
           } else if (res.data.af_status === 'Organic') {
+            fetchAdServicesAttributionData(); // Вставка функції для отримання даних
             //console.log('App.js res.data==>', res.data);
-            const {af_status} = res.data;
+            //const {af_status} = res.data;
             //console.log('This is first launch and a Organic Install');
-            setSab1(af_status);
+            //setSab1(af_status);
           }
         } else {
           //console.log('This is not first launch');
