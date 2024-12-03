@@ -27,9 +27,8 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
   const [uid, setUid] = useState(route.params?.uid);
   const [sab, setSab] = useState(route.params?.sab1);
   const [pid, setPid] = useState(route.params?.pid);
-  //const [adToken, setAdToken] = useState(route.params?.adToken);
   const [adAtribution, setAdAtribution] = useState(route.params?.adAtribution);
-  const [adKeywordId, setAdKeywordId] = useState(route.params?.adKeywordId);
+  //const [adKeywordId, setAdKeywordId] = useState(route.params?.adKeywordId);
   const [idfv, setIdfv] = useState(route.params?.idfv);
   //console.log('idfvInProductScr============================>', idfv);
   const [customerUserId, setCustomerUserId] = useState(
@@ -106,9 +105,8 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
     uid,
     sab,
     pid,
-    //adToken,
     adAtribution,
-    adKeywordId,
+    //adKeywordId,
     idfv,
     customerUserId,
   ]);
@@ -120,9 +118,8 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
         uid,
         sab,
         pid,
-        //adToken,
         adAtribution,
-        adKeywordId,
+        //adKeywordId,
         idfv,
         customerUserId,
       };
@@ -146,9 +143,8 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
         setUid(parsedData.uid);
         setSab(parsedData.sab);
         setPid(parsedData.pid);
-        //setAdToken(parsedData.adToken);
         setAdAtribution(parsedData.adAtribution);
-        setAdKeywordId(parsedData.adKeywordId);
+        //setAdKeywordId(parsedData.adKeywordId);
         setCustomerUserId(parsedData.customerUserId);
         setIdfv(parsedData.idfv);
       } else {
@@ -168,7 +164,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
   };
 
   ////////////////////////////
-  let baseUrl = `${INITIAL_URL}${URL_IDENTIFAIRE}?${URL_IDENTIFAIRE}=1&advertising_id=${idfa}&uid=${uid}&adAtribution=${adAtribution}&adKeywordId=${adKeywordId}&custom_user_id=${customerUserId}&idfv=${idfv}&onesignal_id=${oneSignalId}`;
+  let baseUrl = `${INITIAL_URL}${URL_IDENTIFAIRE}?${URL_IDENTIFAIRE}=1&advertising_id=${idfa}&uid=${uid}&custom_user_id=${customerUserId}&idfv=${idfv}&onesignal_id=${oneSignalId}`;
   let sabParts = sab ? sab.split('_') : [];
   let additionalParams = sabParts
     .map((part, index) => `sub_id_${index + 1}=${part}`)
@@ -181,7 +177,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
     (!addPartToLinkOnce ? `&yhugh=true` : '');
 
   console.log('My product Url==>', product);
-  //Alert.alert(product);
+  Alert.alert(product);
 
   //const customUserAgent = `Mozilla/5.0 (${deviceInfo.deviceSystemName}; ${deviceInfo.deviceModel}) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Mobile/15E148 Safari/604.1`;
   //const customUserAgent = `Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0) Gecko/20100101 Firefox/91.0`;
@@ -394,14 +390,6 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
           //console.log('syntheticEvent==>', syntheticEvent);
           console.log('nativeEvent', nativeEvent);
           console.log('targetUrl', targetUrl);
-          //if (targetUrl.includes('https://app.payment-gateway.io/static')) {
-          //  console.log('Hello!!!!!!!!!!!!!!!!!!!!!');
-          //  Linking.openURL(targetUrl);
-          //  //refWebview.current.injectJavaScript(
-          //  //  `window.location.href = '${redirectUrl}'`,
-          //  //);
-          //  return false;
-          //} https://gatewaynpay.com/gateway/019d3e7a-41a5-4a0d-a772-2f9e46d01c71
         }}
         textZoom={100}
         allowsBackForwardNavigationGestures={true}

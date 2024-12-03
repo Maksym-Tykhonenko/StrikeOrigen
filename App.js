@@ -51,10 +51,8 @@ const App = () => {
   const [idfv, setIdfv] = useState();
   //console.log('idfv==>', idfv);
   /////////Atributions
-  //const [adServicesToken, setAdServicesToken] = useState(null);
-  //console.log('adServicesToken', adServicesToken);
   const [adServicesAtribution, setAdServicesAtribution] = useState(null);
-  const [adServicesKeywordId, setAdServicesKeywordId] = useState(null);
+  //const [adServicesKeywordId, setAdServicesKeywordId] = useState(null);
 
   const INITIAL_URL = `https://amazing-grand-happiness.space/`;
   const URL_IDENTIFAIRE = `Wd3hzbDH`;
@@ -102,9 +100,8 @@ const App = () => {
         setPid(parsedData.pid);
         setCustomerUserId(parsedData.customerUserId);
         setIdfv(parsedData.idfv);
-        //setAdServicesToken(parsedData.adServicesToken);
         setAdServicesAtribution(parsedData.adServicesAtribution);
-        setAdServicesKeywordId(parsedData.adServicesKeywordId);
+        //setAdServicesKeywordId(parsedData.adServicesKeywordId);
         //
       } else {
         console.log('Даних немає в AsyncStorage');
@@ -112,7 +109,6 @@ const App = () => {
         await requestOneSignallFoo();
         await performAppsFlyerOperations();
         await getUidApps();
-        //await fetchAdServicesToken(); // Вставка функції для отримання токену
         //await fetchAdServicesAttributionData(); // Вставка функції для отримання даних
 
         onInstallConversionDataCanceller();
@@ -135,9 +131,8 @@ const App = () => {
         pid,
         customerUserId,
         idfv,
-        //adServicesToken,
         adServicesAtribution,
-        adServicesKeywordId,
+        //adServicesKeywordId,
       };
       const jsonData = JSON.stringify(data);
       await AsyncStorage.setItem('App', jsonData);
@@ -160,9 +155,8 @@ const App = () => {
     pid,
     customerUserId,
     idfv,
-    //adServicesToken,
     adServicesAtribution,
-    adServicesKeywordId,
+    //adServicesKeywordId,
   ]);
 
   const fetchAdServicesAttributionData = async () => {
@@ -176,33 +170,16 @@ const App = () => {
       ({keywordId} = adServicesAttributionData);
 
       setAdServicesAtribution(attribution);
-      setAdServicesKeywordId(keywordId);
+      //setAdServicesKeywordId(keywordId);
       setSab1(attribution);
       // Вывод значений в консоль
-      //Alert.alert(`Attribution: ${attribution}` + `KeywordId:${keywordId}`);
+      Alert.alert(`Attribution: ${attribution}`);
       //console.log(`Attribution: ${attribution}` + `KeywordId:${keywordId}`);
     } catch (error) {
       const {message} = error;
       // Alert.alert(message); // --> Some error message
     }
   };
-  //fetching AdServices data getAdServicesAttributionData
-  //const fetchAdServicesAttributionData = async () => {
-  //  try {
-  //    const data = await AppleAdsAttribution.getAdServicesAttributionData();
-  //    const attributionValue = data.attribution ? '1' : '0';
-  //    setAdServicesAtribution(attributionValue);
-  //    setAdServicesKeywordId(data.keywordId);
-  //    //console.log('data', data);
-  //    Alert.alert('data', data);
-  //    //Alert.alert('keywordId', data.keywordId);
-  //    //console.log('fetchAdServicesAttributionData======>');
-  //  } catch (error) {
-  //    console.log('Помилка при отриманні даних AdServices:', error.message);
-  //    //Alert.alert('Помилка при отриманні даних AdServices:', error.message);
-  //    console.log('fetchAdServicesAttributionData catch======>');
-  //  }
-  //};
 
   ///////// OneSignall
   // 0fbba8ff-74f0-4738-9bbf-63f19b95c283
@@ -345,7 +322,8 @@ const App = () => {
 
   // 3RD FUNCTION - Отримання найменування AppsFlyer
   const onInstallConversionDataCanceller = appsFlyer.onInstallConversionData(
-    res => {
+    async res => {
+      // Додаємо async
       try {
         const isFirstLaunch = JSON.parse(res.data.is_first_launch);
         if (isFirstLaunch === true) {
@@ -357,17 +335,17 @@ const App = () => {
             setSab1(campaign);
             setPid(pid);
           } else if (res.data.af_status === 'Organic') {
-            fetchAdServicesAttributionData(); // Вставка функції для отримання даних
-            //console.log('App.js res.data==>', res.data);
-            //const {af_status} = res.data;
-            //console.log('This is first launch and a Organic Install');
-            //setSab1(af_status);
+            // Викликаємо fetchAdServicesAttributionData і отримуємо attribution
+            const adServicesAttributionData =
+              await fetchAdServicesAttributionData();
+            const attribution = adServicesAttributionData?.attribution || 'aca'; // Якщо attribution немає, встановлюємо 'aca'
+            setSab1(attribution); // Записуємо в стейт
           }
         } else {
           //console.log('This is not first launch');
         }
       } catch (error) {
-        //console.log('Error processing install conversion data:', error);
+        console.log('Error processing install conversion data:', error);
       }
     },
   );
@@ -438,9 +416,8 @@ const App = () => {
               uid: appsUid,
               customerUserId: customerUserId,
               idfv: idfv,
-              //adToken: adServicesToken,
               adAtribution: adServicesAtribution,
-              adKeywordId: adServicesKeywordId,
+              //adKeywordId: adServicesKeywordId,
             }}
             name="StrikeOrigenProdactScreen"
             component={StrikeOrigenProdactScreen}
