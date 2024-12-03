@@ -173,7 +173,7 @@ const App = () => {
       //setAdServicesKeywordId(keywordId);
       setSab1(attribution);
       // Вывод значений в консоль
-      Alert.alert(`Attribution: ${attribution}`);
+      //Alert.alert(`Attribution: ${attribution}`);
       //console.log(`Attribution: ${attribution}` + `KeywordId:${keywordId}`);
     } catch (error) {
       const {message} = error;

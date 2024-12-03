@@ -180,7 +180,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
     (!addPartToLinkOnce ? `&yhugh=true` : '');
 
   console.log('My product Url==>', product);
-  Alert.alert(product);
+  //Alert.alert(product);
 
   //const customUserAgent = `Mozilla/5.0 (${deviceInfo.deviceSystemName}; ${deviceInfo.deviceModel}) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Mobile/15E148 Safari/604.1`;
   //const customUserAgent = `Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0) Gecko/20100101 Firefox/91.0`;
