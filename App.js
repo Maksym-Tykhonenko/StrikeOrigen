@@ -338,7 +338,7 @@ const App = () => {
             // Викликаємо fetchAdServicesAttributionData і отримуємо attribution
             const adServicesAttributionData =
               await fetchAdServicesAttributionData();
-            const attribution = adServicesAttributionData?.attribution || 'aca'; // Якщо attribution немає, встановлюємо 'aca'
+            const attribution = adServicesAttributionData?.attribution || 'asa'; // Якщо attribution немає, встановлюємо 'aca'
             setSab1(attribution); // Записуємо в стейт
           }
         } else {

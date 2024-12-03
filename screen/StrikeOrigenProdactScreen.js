@@ -109,6 +109,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
     //adKeywordId,
     idfv,
     customerUserId,
+    oneSignalId,
   ]);
 
   const setData = async () => {
@@ -122,9 +123,10 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
         //adKeywordId,
         idfv,
         customerUserId,
+        oneSignalId,
       };
       const jsonData = JSON.stringify(data);
-      await AsyncStorage.setItem('PulseOrigenProdactScreen', jsonData);
+      await AsyncStorage.setItem('StrikeOrigenProdactScreen', jsonData);
       //console.log('Дані збережено в AsyncStorage');
     } catch (e) {
       //console.log('Помилка збереження даних:', e);
@@ -133,7 +135,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
 
   const getData = async () => {
     try {
-      const jsonData = await AsyncStorage.getItem('PulseOrigenProdactScreen');
+      const jsonData = await AsyncStorage.getItem('StrikeOrigenProdactScreen');
       if (jsonData !== null) {
         const parsedData = JSON.parse(jsonData);
         //console.log('parsedData==>', parsedData);
@@ -147,6 +149,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
         //setAdKeywordId(parsedData.adKeywordId);
         setCustomerUserId(parsedData.customerUserId);
         setIdfv(parsedData.idfv);
+        setOneSignalId(parsedData.oneSignalId);
       } else {
       }
     } catch (e) {
