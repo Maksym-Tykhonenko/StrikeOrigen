@@ -475,13 +475,13 @@ const App = () => {
         useNativeDriver: true,
       }).start();
       //setLouderIsEnded(true);
-    }, 3500);
+    }, 3000);
   }, []);
 
   useEffect(() => {
     setTimeout(() => {
       setLouderIsEnded(true);
-    }, 8000);
+    }, 7000);
   }, []);
 
   return (

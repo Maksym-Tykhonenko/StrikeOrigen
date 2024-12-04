@@ -7,6 +7,7 @@ import {
   Linking,
   Image,
   Text,
+  ActivityIndicator,
 } from 'react-native';
 import {WebView} from 'react-native-webview';
 import DeviceInfo from 'react-native-device-info';
@@ -183,7 +184,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
     (pid ? `&pid=${pid}` : '') +
     (!addPartToLinkOnce ? `&yhugh=true` : '');
 
-  console.log('My product Url==>', product);
+  //console.log('My product Url==>', product);
   //Alert.alert(product);
 
   //const customUserAgent = `Mozilla/5.0 (${deviceInfo.deviceSystemName}; ${deviceInfo.deviceModel}) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Mobile/15E148 Safari/604.1`;
@@ -210,7 +211,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
 
   const handleNavigationStateChange = navState => {
     const {url} = navState;
-    console.log('NavigationState: ', navState);
+    //console.log('NavigationState: ', navState);
     //console.log('navState: ', navState);
     if (
       url.includes(
@@ -254,7 +255,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
 
   const onShouldStartLoadWithRequest = event => {
     const {url} = event;
-    console.log('onShouldStartLoadWithRequest========> ', event);
+    //console.log('onShouldStartLoadWithRequest========> ', event);
 
     if (url.startsWith('mailto:')) {
       Linking.openURL(url);
@@ -375,6 +376,24 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
     }
   };
 
+  const LoadingIndicatorView = () => {
+    return (
+      <View
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#124db5', // затемнення
+        }}>
+        <ActivityIndicator size="large" color="#fbb802" />
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#191d24'}}>
       <WebView
@@ -400,7 +419,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
         }}
         onError={syntheticEvent => {
           const {nativeEvent} = syntheticEvent;
-          console.warn('WebView error: ', nativeEvent.code);
+          //console.warn('WebView error: ', nativeEvent.code);
           if (nativeEvent.code === -1002) {
             Alert.alert(
               'The app is not installed on your device.',
@@ -428,6 +447,8 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
         style={{flex: 1}}
         ref={refWebview}
         userAgent={customUserAgent}
+        startInLoadingState={true}
+        renderLoading={() => <LoadingIndicatorView />}
       />
 
       <View
