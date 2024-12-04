@@ -60,6 +60,10 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
     'googlepay://',
     'applepay://',
     'skrill',
+    'nl.abnamro.deeplink.psd2.consent://',
+    'nl-snsbank-sign://',
+    'nl-asnbank-sign://',
+    'triodosmobilebanking',
   ];
 
   //**івент push_subscribe
