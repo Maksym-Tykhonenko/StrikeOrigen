@@ -376,6 +376,22 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
     }
   };
 
+  ////////////////////////////
+  const [isLoading, setIsLoading] = useState(true); // Стан завантаження
+  const [skipFirstLoadEnd, setSkipFirstLoadEnd] = useState(true); // Пропускаємо перший `loadingEnd`
+
+  const handleLoadingStart = () => {
+    setIsLoading(true);
+  };
+
+  const handleLoadingEnd = () => {
+    if (skipFirstLoadEnd) {
+      setSkipFirstLoadEnd(false); // Пропускаємо перше завантаження
+    } else {
+      setIsLoading(false); // Ховаємо лоадер
+    }
+  };
+
   const LoadingIndicatorView = () => {
     return (
       <View
@@ -396,6 +412,8 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#191d24'}}>
+      {isLoading && <LoadingIndicatorView />}
+
       <WebView
         originWhitelist={[
           '*',
@@ -407,6 +425,8 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
         ]}
         onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
         onNavigationStateChange={handleNavigationStateChange}
+        onLoadStart={handleLoadingStart} // Викликається при початку завантаження
+        onLoadEnd={handleLoadingEnd} // Викликається при завершенні завантаження
         source={{
           uri: product,
         }}
