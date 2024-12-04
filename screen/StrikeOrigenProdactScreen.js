@@ -210,7 +210,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
 
   const handleNavigationStateChange = navState => {
     const {url} = navState;
-    console.log('NavigationState: ', url);
+    console.log('NavigationState: ', navState);
     //console.log('navState: ', navState);
     if (
       url.includes(
@@ -254,7 +254,7 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
 
   const onShouldStartLoadWithRequest = event => {
     const {url} = event;
-    console.log('onShouldStartLoadWithRequest========> ', url);
+    console.log('onShouldStartLoadWithRequest========> ', event);
 
     if (url.startsWith('mailto:')) {
       Linking.openURL(url);
@@ -397,6 +397,24 @@ const StrikeOrigenProdactScreen = ({navigation, route}) => {
           //console.log('syntheticEvent==>', syntheticEvent);
           console.log('nativeEvent', nativeEvent);
           console.log('targetUrl', targetUrl);
+        }}
+        onError={syntheticEvent => {
+          const {nativeEvent} = syntheticEvent;
+          console.warn('WebView error: ', nativeEvent.code);
+          if (nativeEvent.code === -1002) {
+            Alert.alert(
+              'The app is not installed on your device.',
+              'Please choose another method.',
+              [
+                {
+                  text: 'OK',
+                  onPress: () => {
+                    reloadPageBtn();
+                  }, // Виклик функції при натисканні "OK"
+                },
+              ],
+            );
+          }
         }}
         textZoom={100}
         allowsBackForwardNavigationGestures={true}
